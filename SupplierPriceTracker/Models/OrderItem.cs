@@ -17,12 +17,12 @@ namespace SupplierPriceTracker.Models
         public Order? Order { get; set; }
 
         [Column(TypeName = "decimal(18,2)")]
-        [Range(1, 100)]
         [DataType(DataType.Currency)]
         [Required]
         public decimal TotalValue { get; set; }
 
         [Required]
+        [Column(TypeName = "decimal(18,2)")]
         public decimal Quantity { get; set; }
 
         public bool IsDeleted { get; set; } = false;
