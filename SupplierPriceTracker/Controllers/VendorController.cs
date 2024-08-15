@@ -30,9 +30,9 @@ namespace SupplierPriceTracker.Controllers
 			return RedirectToAction("Index");
 		}
 
-		public async Task<IEnumerable<Vendor>> SearchVendor(string name, bool isDeleted = false)
+		public async Task<IEnumerable<Vendor>> SearchVendor(string name, bool? isDeleted)
 		{
-			if (String.IsNullOrWhiteSpace(name))
+			if (String.IsNullOrWhiteSpace(name) && isDeleted == null)
 			{
 				return await _vendorRepository.GetAllAsync();
 			}

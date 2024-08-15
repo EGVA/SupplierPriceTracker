@@ -26,9 +26,12 @@ namespace SupplierPriceTracker.Repository
             return await _context.Vendors.Where(x => x.IsDeleted == false).ToListAsync();
         }
 
-        public async Task<IEnumerable<Vendor>> SearchVendor(string name, bool isDeleted = false)
+        public async Task<IEnumerable<Vendor>> SearchVendor(string name, bool? isDeleted)
 		{
-            return await _context.Vendors.Where(vendor => vendor.Name.Contains(name) && vendor.IsDeleted == isDeleted).ToListAsync();
+            var query = _context.Vendors.AsQueryable();
+            if (!string.IsNullOrWhiteSpace(name)) query = _context.Vendors.Where(x => x.Name.Contains(name));
+            if (isDeleted != null) query = query.Where(x => x.IsDeleted == isDeleted);
+            return await query.ToListAsync();
 		}
 
 		public async Task<bool> SaveAsync()

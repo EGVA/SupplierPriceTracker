@@ -120,7 +120,7 @@ namespace SupplierPriceTracker_Tests.Repository
 			VendorRepository _vendorRepository = new (_context);
 
 			// Act
-			var result = await _vendorRepository.SearchVendor("A");
+			var result = await _vendorRepository.SearchVendor("A", null);
 			var resultIsDeleted = await _vendorRepository.SearchVendor("A", true);
 
 			// Assert
