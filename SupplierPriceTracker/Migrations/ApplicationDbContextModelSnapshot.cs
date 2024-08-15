@@ -3,20 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SupplierPriceTracker.Data;
 
 #nullable disable
 
-namespace SupplierPriceTracker.Data.Migrations
+namespace SupplierPriceTracker.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240813015134_InitialCreate1")]
-    partial class InitialCreate1
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

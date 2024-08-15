@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace SupplierPriceTracker.Data.Migrations
+namespace SupplierPriceTracker.Migrations
 {
     /// <inheritdoc />
     public partial class InitialCreate1 : Migration

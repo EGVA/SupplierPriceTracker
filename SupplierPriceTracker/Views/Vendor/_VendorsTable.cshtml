@@ -1,0 +1,44 @@
+﻿@model IEnumerable<SupplierPriceTracker.Models.Vendor>
+@{
+}
+
+<h5>Lista de Vendedores</h5>
+<hr />
+<h6>Pesquisa</h6>
+<form class="form-inline">
+	<label class="sr-only visually-hidden" for="VendorNameSearchBar">Pesquisar Vendedor por Nome</label>
+	<input type="search" class="form-control mb-2 mr-sm-2" id="VendorNameSearchBar" placeholder="Nome do Vendedor" />
+
+	<div class="form-check mb-2 mr-sm-2">
+		<input class="form-check-input" type="checkbox" id="isVendorDeleted" value=0>
+		<label class="form-check-label" for="isVendorDeleted">
+			Deletado?
+		</label>
+	</div>
+</form>
+<hr />
+<table class="table">
+	<thead>
+		<tr>
+			<th>
+				@Html.DisplayNameFor(model => model.Id)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Name)
+			</th>
+		</tr>
+	</thead>
+	<tbody id="vendorTableBody">
+		@foreach (Vendor item in Model)
+		{
+			<tr>
+				<td>
+					@item.Id
+				</td>
+				<td>
+					@item.Name
+				</td>
+			</tr>
+		}
+	</tbody>
+</table>

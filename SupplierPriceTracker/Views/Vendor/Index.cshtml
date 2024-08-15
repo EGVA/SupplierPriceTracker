@@ -1,0 +1,14 @@
+﻿@model SupplierPriceTracker.ViewModels.VendorIndexViewModel?
+@{
+	ViewData["Title"] = "Vendedores";
+}
+
+@await Html.PartialAsync("_VendorCreateForm", Model?.Vendor)
+@await Html.PartialAsync("_VendorsTable", Model?.ViewVendors)
+
+@section Scripts {
+	@{
+		<script src="~/js/Views/Vendors/VendorTableSearch.js"></script>
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+}
