@@ -17,17 +17,10 @@ namespace SupplierPriceTracker_Tests.Repository
 	public class VendorRepository_Tests : IDisposable
 	{
 		protected readonly ApplicationDbContext _context;
-		private DbConnection _connection;
+		private DbConnection? _connection;
 		public VendorRepository_Tests()
 		{
-			_connection = new SqliteConnection("DataSource=:memory:");
-			_connection.Open();
-			var options = new
-			DbContextOptionsBuilder<ApplicationDbContext>()
-				.UseSqlite(_connection)
-				.Options;
-			_context = new ApplicationDbContext(options);
-			_context.Database.EnsureCreated();
+			Utils.InstantiateDB(out _connection, out _context!);
 		}
 
 		[Fact(DisplayName = "Vendor Repositoy AddAsync")]
@@ -125,7 +118,7 @@ namespace SupplierPriceTracker_Tests.Repository
 
 			// Assert
 			result.Should().BeOfType<List<Vendor>>();
-			result.Should().HaveCount(2);
+			result.Should().HaveCount(3);
 			resultIsDeleted.Should().HaveCount(1);
 		}
 

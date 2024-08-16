@@ -15,23 +15,16 @@ using System.Threading.Tasks;
 
 namespace SupplierPriceTracker_Tests.Repository
 {
-	public class ProductRepository_Tests
+	public class ProductRepository_Tests : IDisposable
 	{
 		protected readonly ApplicationDbContext _context;
-		private DbConnection _connection;
+		private DbConnection? _connection;
 		public ProductRepository_Tests()
 		{
-			_connection = new SqliteConnection("DataSource=:memory:");
-			_connection.Open();
-			var options = new
-			DbContextOptionsBuilder<ApplicationDbContext>()
-				.UseSqlite(_connection)
-				.Options;
-			_context = new ApplicationDbContext(options);
-			_context.Database.EnsureCreated();
+			 Utils.InstantiateDB(out _connection, out _context!);
 		}
 
-		private async Task MockProductsContraints()
+		private async Task MockProductsConstraints()
 		{
 			List<MeasureUnit> measureUnit = new List<MeasureUnit>();
 			for (int i = 0; i < 10; i++)
@@ -54,7 +47,7 @@ namespace SupplierPriceTracker_Tests.Repository
 		public async void ProductRepository_SearchProduct_ReturnsIEnumerableProducts()
 		{
 			// Assert
-			await MockProductsContraints();
+			await MockProductsConstraints();
 
 			List<Product> products = [
 				new Product() { Id = 1, Name = "Teste", MeasureUnitId = 1, ProductCategoryId = 1, IsDeleted = false },
@@ -76,11 +69,11 @@ namespace SupplierPriceTracker_Tests.Repository
 			result.Should().HaveCount(2);
 		}
 
-		[Fact(DisplayName = "Product Repositoy AddAsync")]
+		[Fact(DisplayName = "Product Repository AddAsync")]
 		public async void ProductRepositoy_AddAsync_ReturnsBool()
 		{
 			// Arrange
-			await MockProductsContraints();
+			await MockProductsConstraints();
 
 			ProductRepository _productRepository = new ProductRepository(_context);
 
@@ -89,14 +82,14 @@ namespace SupplierPriceTracker_Tests.Repository
 
 			// Assert
 			result.Should().BeTrue();
-			_context.Products.Any().Should().BeTrue();
+			_context!.Products.Any().Should().BeTrue();
 		}
 
-		[Fact(DisplayName = "Product Repositoy DeleteAsync")]
+		[Fact(DisplayName = "Product Repository DeleteAsync")]
 		public async void ProductRepository_DeleteAsync_ReturnsBool()
 		{
 			// Arrange
-			await MockProductsContraints();
+			await MockProductsConstraints();
 
 			Product product = Mock.Of<Product>(x => x.Id == 1 && x.MeasureUnitId == 1 && x.ProductCategoryId == 1 && x.IsDeleted == false);
 			_context.Products.Add(product);
@@ -112,11 +105,11 @@ namespace SupplierPriceTracker_Tests.Repository
 			_context.Products.FirstOrDefault(x => x.Id == 1)!.IsDeleted.Should().BeTrue();
 		}
 
-		[Fact(DisplayName = "Product Repositoy UpdateAsync")]
+		[Fact(DisplayName = "Product Repository UpdateAsync")]
 		public async void ProductRepository_UpdateAsync_ReturnsBool()
 		{
 			// Arrange
-			await MockProductsContraints();
+			await MockProductsConstraints();
 
 			Product product = new Product()
 			{
@@ -139,11 +132,11 @@ namespace SupplierPriceTracker_Tests.Repository
 			_context.Products.FirstOrDefault(x => x.Id == 1)!.Name.Should().Be("Updated");
 		}
 
-		[Fact(DisplayName = "Product Repositoy GetAllAsync")]
-		public async void ProductRepository_GetAllAsync_ReturnIenumerableVendor()
+		[Fact(DisplayName = "Product Repository GetAllAsync")]
+		public async void ProductRepository_GetAllAsync_ReturnIEnumerableVendor()
 		{
 			// Arrange
-			await MockProductsContraints();
+			await MockProductsConstraints();
 
 			List<Product> products = new List<Product>();
 			for (int i = 0; i < 10; i++)
@@ -162,11 +155,11 @@ namespace SupplierPriceTracker_Tests.Repository
 			result.Should().HaveCount(10);
 		}
 
-		[Fact(DisplayName = "Product Repositoy SaveAsync")]
+		[Fact(DisplayName = "Product Repository SaveAsync")]
 		public async void ProductRepository_SaveAsync_ReturnsBool()
 		{
 			// Arrange
-			await MockProductsContraints();
+			await MockProductsConstraints();
 
 			_context.Products.Add(Mock.Of<Product>(x => x.MeasureUnitId == 1 && x.ProductCategoryId == 1));
 			ProductRepository _productRepository = new ProductRepository(_context);
@@ -177,7 +170,6 @@ namespace SupplierPriceTracker_Tests.Repository
 			// Assert
 			result.Should().BeTrue();
 		}
-
 
 		public void Dispose()
 		{
