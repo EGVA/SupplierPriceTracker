@@ -37,7 +37,7 @@ namespace SupplierPriceTracker_Tests.Controller
 			result.Should().BeOfType<ViewResult>();
 			ViewResult? viewResult = result as ViewResult;
 			viewResult?.Model.Should().NotBeNull();
-			var data = viewResult?.Model as VendorIndexViewModel;
+			var data = viewResult?.Model as VendorIndexVM;
 			data?.ViewVendors?.ToList().Count.Should().Be(10);
 		}
 

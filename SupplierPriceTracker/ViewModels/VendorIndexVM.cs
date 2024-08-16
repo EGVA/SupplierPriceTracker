@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace SupplierPriceTracker.ViewModels
 {
-	public class VendorIndexViewModel
+	public class VendorIndexVM
 	{
         [Required]
         public Vendor? Vendor { get; set; }

@@ -1,0 +1,15 @@
+﻿@model SupplierPriceTracker.ViewModels.ProductIndexVM
+@{
+	ViewData["Title"] = "Produtos";
+}
+
+<div id="CreateProductForm"></div>
+<hr />
+@await Html.PartialAsync("_ProductTable", Model.Products)
+
+@section Scripts {
+	@{
+		<script src="~/js/Views/Products/ProductIndex.js"></script>
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+}

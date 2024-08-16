@@ -17,7 +17,7 @@
 	</div>
 </form>
 <hr />
-<table class="table">
+<table class="table table-responsive-sm">
 	<thead>
 		<tr>
 			<th>
@@ -26,18 +26,18 @@
 			<th>
 				@Html.DisplayNameFor(model => model.Name)
 			</th>
+			<th>
+				Ações
+			</th>
 		</tr>
 	</thead>
 	<tbody id="vendorTableBody">
 		@foreach (Vendor item in Model)
 		{
 			<tr>
-				<td>
-					@item.Id
-				</td>
-				<td>
-					@item.Name
-				</td>
+				<td>@item.Id</td>
+				<td>@item.Name</td>
+				<td><button class="btn btn-outline-primary" onclick="EditVendor(@item.Id)">Editar</button></td>
 			</tr>
 		}
 	</tbody>

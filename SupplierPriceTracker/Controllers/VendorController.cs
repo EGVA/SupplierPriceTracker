@@ -14,7 +14,7 @@ namespace SupplierPriceTracker.Controllers
 		public async Task<IActionResult> Index()
 		{
 			var vendors = await _vendorRepository.GetAllAsync();
-			return View(new VendorIndexViewModel() { ViewVendors = vendors });
+			return View(new VendorIndexVM() { ViewVendors = vendors });
 		}
 
 		[HttpPost("/Vendor/Create")]
@@ -24,7 +24,7 @@ namespace SupplierPriceTracker.Controllers
 			if (!ModelState.IsValid)
 			{
 				var vendors = await _vendorRepository.GetAllAsync();
-				return View("Index", new VendorIndexViewModel() { ViewVendors = vendors, Vendor = vendor });
+				return View("Index", new VendorIndexVM() { ViewVendors = vendors, Vendor = vendor });
 			}
 			await _vendorRepository.AddAsync(vendor);
 			return RedirectToAction("Index");

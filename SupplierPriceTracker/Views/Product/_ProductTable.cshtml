@@ -1,0 +1,25 @@
+﻿@model IEnumerable<SupplierPriceTracker.Models.Product>
+
+<table class="table">
+	<thead>
+		<tr>
+			<th>@Html.DisplayNameFor(model => model.Id)</th>
+			<th>@Html.DisplayNameFor(model => model.Name)</th>
+			<th>@Html.DisplayNameFor(model => model.MeasureUnit)</th>
+			<th>@Html.DisplayNameFor(model => model.ProductCategory)</th>
+			<th>Ações</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var e in Model)
+		{
+			<tr>
+				<td>@e.Id</td>
+				<td>@e.Name</td>
+				<td>@e.MeasureUnit!.Name</td>
+				<td>@e.ProductCategory</td>
+				<td><button class="btn btn-outline-primary" onclick="EditProduct(@e.Id)">Editar</button></td>
+			</tr>
+		}
+	</tbody>
+</table>
