@@ -4,6 +4,6 @@ namespace SupplierPriceTracker.Interfaces.Repository
 {
 	public interface ICategoryRepository
 	{
-		Task<IEnumerable<ProductCategory>> GetAllAsync();
+		public Task<IEnumerable<ProductCategory>> GetAllAsync();
 	}
 }
