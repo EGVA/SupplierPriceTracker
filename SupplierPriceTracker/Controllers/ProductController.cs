@@ -5,9 +5,12 @@ using SupplierPriceTracker.ViewModels;
 
 namespace SupplierPriceTracker.Controllers
 {
-	public class ProductController (IProductRepository productRepository) : Controller
+	public class ProductController (IProductRepository productRepository, IMeasureUnitRepository measureUnitRepository, ICategoryRepository categoryRepository) : Controller
 	{
 		private readonly IProductRepository _productRepository = productRepository;
+		private readonly IMeasureUnitRepository _measureUnitRepository = measureUnitRepository;
+		private readonly ICategoryRepository _categoryRepository = categoryRepository;
+
 		public async Task<IActionResult> Index()
 		{
 			ProductIndexVM vm = new()
@@ -17,11 +20,14 @@ namespace SupplierPriceTracker.Controllers
 			return View(vm);
 		}
 
-		public PartialViewResult CreateForm()
+		public async Task<PartialViewResult> GetCreateForm()
 		{
-			// To Do : Get products measure unit list.
-			// To Do : Get products category list.
-			return PartialView("_ProductForm");
+			ProductFormVM vm = new();
+
+			vm.ProductCategories = await _categoryRepository.GetAllAsync();
+			vm.MeasureUnits = await _measureUnitRepository.GetAllAsync();
+			
+			return PartialView("_ProductForm", vm);
 		}
 	}
 }
