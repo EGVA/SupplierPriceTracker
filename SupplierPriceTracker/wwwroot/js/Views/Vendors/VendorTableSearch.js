@@ -12,7 +12,7 @@ isVendorDeleted.addEventListener("change", () => {
 
 function SearchVendors(vendorName, isDeleted) {
     $.get(
-        "https://localhost:7021/Vendor/SearchVendor" + `?name=${vendorName}` + `&isDeleted=${isDeleted}`,
+        url + `?name=${vendorName}` + `&isDeleted=${isDeleted}`,
         (data) => {
             DisplaySearchResults(data);
         }

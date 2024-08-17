@@ -22,12 +22,13 @@ namespace SupplierPriceTracker.Controllers
 
 		public async Task<PartialViewResult> GetCreateForm()
 		{
-			ProductFormVM vm = new();
+			ProductFormVM vm = new()
+			{
+				ProductCategories = await _categoryRepository.GetAllAsync(),
+				MeasureUnits = await _measureUnitRepository.GetAllAsync()
+			};
 
-			vm.ProductCategories = await _categoryRepository.GetAllAsync();
-			vm.MeasureUnits = await _measureUnitRepository.GetAllAsync();
-			
-			return PartialView("_ProductForm", vm);
+			return PartialView("_CreateProductForm", vm);
 		}
 	}
 }
