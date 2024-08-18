@@ -4,11 +4,11 @@
 <form asp-action="Create" class="gap-4 d-flex flex-column">
 	<div asp-validation-summary="ModelOnly" class="text-danger"></div>
 	<div class="form-group">
-		<input asp-for="Name" class="form-control" oninput="SearchProduct(this.value)" value="" placeholder="Nome do Produto" />
+		<input asp-for="Name" id="NameInput" class="form-control" oninput="SearchProduct(this.value)" value="" placeholder="Nome do Produto" />
 		<span asp-validation-for="Name" class="text-danger"></span>
 	</div>
 	<div class="form-group">
-		<select name="MeasureUnitId" asp-for="MeasureUnitId">
+		<select name="MeasureUnitId" asp-for="MeasureUnitId" id="MeasureUnitInput">
 			@foreach (var e in Model.MeasureUnits!)
 			{
 				<option value=@e.Id>@e.Name</option>
@@ -17,7 +17,7 @@
 		<span asp-validation-for="MeasureUnitId" class="text-danger"></span>
 	</div>
 	<div class="form-group">
-		<select name="CategoryId" asp-for="CategoryId">
+		<select name="CategoryId" asp-for="CategoryId" id="CategoryInput">
 			@foreach (var e in Model.ProductCategories!)
 			{
 				<option value=@e.Id>@e.Name</option>
@@ -26,6 +26,6 @@
 		<span asp-validation-for="MeasureUnitId" class="text-danger"></span>
 	</div>
 	<div class="form-group">
-		<input type="submit" value="Novo Produto" class="btn btn-primary" />
+		<input type="button" value="Novo Produto" class="btn btn-primary" id="SubmitProductInput"/>
 	</div>
 </form>

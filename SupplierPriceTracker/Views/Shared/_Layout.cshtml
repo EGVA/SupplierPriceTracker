@@ -48,10 +48,9 @@
     <script type="text/javascript">
         var url = '@string.Format("{0}://{1}{2}", Context.Request.Scheme, Context.Request.Host.Value, Url.Content("~/"))';
     </script>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-    <script src="~/lib/jquery/jquery.js" asp-append-version="true"></script>
+    <script src="~/lib/jquery/dist/jquery.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
